@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flags from rest countries </title>
+</head>
+
+<body>
+    <script>
+
+        //header section
+        var header = document.createElement("h1")
+        header.innerText = "Flags of all Countries"
+        header.style.backgroundColor = "red";
+        document.body.appendChild(header);
+
+        // body bg
+        document.body.style.backgroundColor = "pink";
+
+         // board section
+
+         var board = document.createElement("div");
+        board.style.width = "100%";
+        board.style.flexDirection = "row"
+        board.style.display = "flex"
+        board.style.flexWrap = "wrap"
+        board.style.backgroundColor="yellow "
+        
+
+
+        fetch("https://restcountries.com/v3.1/all")    
+        .then(function(data){
+            return data.json();
+        })
+        .then(function(dataObj){
+            console.log(dataObj);
+       
+    
+       
+           dataObj.forEach((element) => {
+                //box creation
+                var maindiv= document.createElement("div");
+                maindiv.style.width="200px"
+                maindiv.style.height="200px"
+                maindiv.style.display="flex";
+                maindiv.style.flexDirection="column";
+                maindiv.style.margin="40px"
+                maindiv.style.backgroundColor="green"
+                maindiv.setAttribute("id", "di")
+                board.appendChild(maindiv)
+
+                //image box
+
+                var img= document.createElement("img")
+                img.setAttribute("src",element.flags.png)
+                img.alt="flag img"
+                img.style.width="198px"
+                img.style.height="100px"
+                img.style.border= "1px solid black"
+                maindiv.appendChild(img)
+
+                // name box
+
+                var names=document.createElement("div")
+                names.style.width="198px"
+                names.style.height="50px"
+                names.style.marginLeft="10px"
+                names.style.color="yellow"
+                names.innerHTML=element.name.common;
+                maindiv.appendChild(names)
+
+
+                // car signs
+
+                var names1=document.createElement("div")
+                names1.style.width="198px"
+                names1.style.height="50px"
+                names1.style.color="white"
+                names1.innerHTML=element.car.signs;
+                names1.style.marginLeft="10px"
+                maindiv.appendChild(names1)
+
+               
+
+            });
+
+        })
+        .catch(function (err) {
+                console.log(err)
+            })
+
+
+            document.body.appendChild(board)
+
+    </script>
+</body>
+
+</html>
